@@ -154,10 +154,16 @@ const sync = async () => {
         const { slug } = entry;
         const malId = await getMalIdByHikkaSlug(slug);
         const anilistEntry = await getAnilistEntryByMalId(malId);
+
         const init = anilistEntry.mediaListEntry;
         const diff = compareEntries(entry, anilistEntry);
-        if (Object.keys(diff).length > 0) await setAnilistEntry(anilistEntry.id, { ...init, ...diff });
+
+        if (
+            Object.keys(diff).length > 0 &&
+            !(entry?.after?.status === anilistEntry?.mediaListEntry.status)
+        ) await setAnilistEntry(anilistEntry.id, { ...init, ...diff });
         else console.log(`No changes for ${anilistEntry.siteUrl}`);
+
         await Bun.sleep(3000);
     }
 }
