@@ -155,6 +155,11 @@ const sync = async () => {
         const malId = await getMalIdByHikkaSlug(slug);
         const anilistEntry = await getAnilistEntryByMalId(malId);
 
+        if (!anilistEntry) {
+            console.error(`No Anilist entry for ${slug}`);
+            continue;
+        }
+
         const init = anilistEntry.mediaListEntry;
         const diff = compareEntries(entry, anilistEntry);
 
