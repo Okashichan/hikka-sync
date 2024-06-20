@@ -165,7 +165,7 @@ const sync = async () => {
 
         if (
             Object.keys(diff).length > 0 &&
-            !(entry?.after?.status === anilistEntry?.mediaListEntry.status)
+            !(entry?.after?.status === anilistEntry?.mediaListEntry?.status)
         ) await setAnilistEntry(anilistEntry.id, { ...init, ...diff });
         else console.log(`No changes for ${anilistEntry.siteUrl}`);
 
